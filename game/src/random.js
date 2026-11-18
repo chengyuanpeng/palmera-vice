@@ -10,3 +10,16 @@ export function createRandom(seed) {
     return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
 }
+
+export function range(rng, a, b) { return a + (b - a) * rng(); }
+export function int(rng, a, b) { return Math.floor(range(rng, a, b + 1)); }
+export function pick(rng, array) { return array[Math.floor(rng() * array.length)]; }
+export function chance(rng, p) { return rng() < p; }
+export function shuffle(rng, array) {
+  const result = array.slice();
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+}
